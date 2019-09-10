@@ -5,9 +5,10 @@ LABEL maintainer="deividasskiparis@hotmail.com"
 WORKDIR "/opt/docker"
 
 RUN pip3 install \
-    matplotlib \
-    pillow \
-    scipy \
+    matplotlib seaborn \
+    pillow scipy pandas sklearn \
+    pyarrow \
+    flask gevent requests \
     s3Contents
 
 COPY scripts/* ./
