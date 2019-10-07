@@ -1,6 +1,6 @@
 # tensorflow-jupyter-aws-docker
 Docker container with Python3, Tensorflow and Jupyter for training models on AWS
-Stores all notebooks to S3 bucket*
+Store all notebooks to local or to S3 bucket
 
 ## Steps:
 1. Create a S3 bucket on AWS
@@ -10,27 +10,39 @@ Stores all notebooks to S3 bucket*
     ```
     docker build -t tensorflow-jupyter-aws-docker .
     ```
-4. Credentials
-    
-    Ensure AWS credentials are available in your shell, if not set them manually:
-    ```
-    export AWS_ACCESS_KEY_ID=###
-    export AWS_SECRET_ACCESS_KEY=###
-    export AWS_SESSION_TOKEN=###
-    ```
-5. Run image
-    ```
-    docker run -it --rm \
-        -p=8888:8888 \
-        --name=tensorflow-jupyter-aws-docker \
-        -e "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" \
-        -e "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" \
-        -e "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" \
-        -e "AWS_REGION=$AWS_REGION" \
-        -e "AWS_S3_BUCKET=your-s3-bucket-name" \
-        tensorflow-jupyter-aws-docker develop
-    ```
-    NOTE: _AWS_SESSION_TOKEN_  might be optional
+4. Run Docker
+    * Option 1: Run docker with S3 Contents Managers
+        
+        1. Credentials
+        Ensure AWS credentials are available in your shell, if not set them manually:
+            ```
+            export AWS_ACCESS_KEY_ID=###
+            export AWS_SECRET_ACCESS_KEY=###
+            export AWS_SESSION_TOKEN=###
+            ```
+        2. Run image
+            ```
+            docker run -it --rm \
+                -p=8888:8888 \
+                --name=tensorflow-jupyter-aws-docker \
+                -e "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" \
+                -e "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" \
+                -e "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" \
+                -e "AWS_REGION=$AWS_REGION" \
+                -e "AWS_S3_BUCKET=your-s3-bucket-name" \
+                tensorflow-jupyter-aws-docker develop
+            ```
+        NOTE: _AWS_SESSION_TOKEN_  might be optional
+
+    * Option2:  To docker with local filesystem
+        1. Run image
+        ```
+        docker run -it --rm \
+            -p=8888:8888 \
+            --name=tensorflow-jupyter-aws-docker \
+            -v $(pwd)/notebooks:/opt/docker/notebooks \
+            tensorflow-jupyter-aws-docker develop
+        ```
 
 6. Open the Jupyter notebook
 
