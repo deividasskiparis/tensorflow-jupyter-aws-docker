@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:latest-gpu-py3-jupyter
+FROM pytorch/pytorch:latest
 
 LABEL maintainer="deividasskiparis@hotmail.com"
 
