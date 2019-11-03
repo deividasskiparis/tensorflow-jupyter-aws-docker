@@ -4,7 +4,7 @@ LABEL maintainer="deividasskiparis@hotmail.com"
 
 WORKDIR "/opt/docker"
 
-RUN pip3 install \
+RUN pip install \
     matplotlib seaborn \
     pillow scipy pandas sklearn \
     pyarrow \
